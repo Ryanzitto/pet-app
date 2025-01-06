@@ -15,6 +15,6 @@ class PetSeeder extends Seeder
     public function run()
     {
         // Cria 50 pets utilizando a factory
-        Pet::factory()->count(50)->create();
+        Pet::factory()->count(15)->create();
     }
 }

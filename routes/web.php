@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,13 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('pets', [PetController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('pets');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-    
 
 
 require __DIR__.'/auth.php';
