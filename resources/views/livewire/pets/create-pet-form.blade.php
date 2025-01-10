@@ -102,6 +102,12 @@ new class extends Component {
         ]);
 
         $this->dispatch('pet-registred');
+        $this->reset();
+        $this->dispatch('push-notification', message: [
+            'title'     => 'Cadastro concluído',
+            'subtitle'  => "{$validated['pet_name']} foi cadastrado com sucesso!",
+         ]);
+
     }
 }; ?>
 
@@ -110,7 +116,7 @@ new class extends Component {
         <span>Creating pet</span>
         <span>Close</span>
     </div>
-    <form wire:submit="save" class="w-full flex flex-wrap mt-8">
+    <form wire:submit="save()" class="w-full flex flex-wrap mt-8">
         <div class="w-1/2 px-4 mt-4">
             <x-input-label value="Pet name" placeholder="toggleBreed"/>
             <x-text-input wire:model="pet_name" class="w-full mt-2" placeholder="Example: Tony"/> 

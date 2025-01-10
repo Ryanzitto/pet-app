@@ -27,11 +27,11 @@
                     </div>
                 </header>
             @endif
-
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
+        <livewire:push-notification />
     </body>
 </html>
