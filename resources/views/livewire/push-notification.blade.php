@@ -33,7 +33,7 @@ new class extends Component {
     @if ($displayToast)
     @foreach ($notifications as $notification)
     <div id="toast-notification-{{ $loop->index }}"
-        class="w-full max-w-full p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400"
+        class="animate-entrance w-full max-w-full p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400"
         role="alert">
         <div class="flex">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 bg-gray-800 rounded-lg">

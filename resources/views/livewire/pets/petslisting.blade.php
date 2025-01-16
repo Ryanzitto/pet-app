@@ -13,7 +13,7 @@ new class extends Component {
    $this->getPets();
   }
 
-  #[On('pet-registred')]
+  #[On('refresh-pets')]
   public function getPets():void
   {
      //provavelmente lista somente os pertencentes do mais antigo pro mais recente
@@ -27,7 +27,7 @@ new class extends Component {
 
 <div class="gap-6 flex flex-wrap justify-center">
 @foreach($pets as $pet)
-    <div class="bg-gray-200 border border-1 border-gray-300 rounded-sm w-[45%] flex flex-wrap p-4">
+    <div class="bg-gray-100 border border-1 border-gray-300 rounded-sm w-[45%] flex flex-wrap p-4">
         <div class="w-1/2">
             <span>Nome:</span>
             <span>{{$pet->nome}}</span>

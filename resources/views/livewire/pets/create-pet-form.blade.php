@@ -9,6 +9,8 @@ new class extends Component {
     public $pet_breed = "Vira-lata";
     public $pet_age = "";
 
+    public $url = "/images/logo.png";
+
     public $dog_breeds =[
         'Vira-lata', 
         'Golden Retriever',
@@ -80,9 +82,13 @@ new class extends Component {
     public function toggleBreed($value){
     if($value === "Cat"){
         $this->breed = $this->cat_breeds;
+        $this->pet_breed = $this->cat_breeds[0];
+        $this->url = "/images/logo.png";
         }
     if($value === "Dog") {
         $this->breed = $this->dog_breeds;
+        $this->pet_breed = $this->dog_breeds[0];
+        $this->url = "/images/logo.png";;
         }
     }
 
@@ -101,11 +107,11 @@ new class extends Component {
             'idade' => $validated['pet_age'],
         ]);
 
-        $this->dispatch('pet-registred');
+        $this->dispatch('refresh-pets');
         $this->reset();
         $this->dispatch('push-notification', message: [
             'title'     => 'Cadastro concluído',
-            'subtitle'  => "{$validated['pet_name']} foi cadastrado com sucesso!",
+            'subtitle'  => " {$validated['pet_name']} foi cadastrado com sucesso!",
          ]);
 
     }
@@ -137,9 +143,13 @@ new class extends Component {
             <x-text-input wire:model="pet_age" type="number" class="w-full mt-2" placeholder="Example: 4"/> 
             <x-input-error :messages="$errors->get('pet_age')" class="mt-2" />
         </div>
-        <div class="w-full flex px-4 mt-4 gap-4">
-            <x-primary-button type="submit">Confirm</x-primary-button>
-            <x-secondary-button>Cancel</x-secondary-button>
-        </div>
+        <div class="w-full flex px-4 mt-4 justify-between">
+            <div class="flex mt-4 gap-4">
+                <x-primary-button class="h-10" type="submit">Confirm</x-primary-button>
+                <x-secondary-button class="h-10">Cancel</x-secondary-button>
+            </div>
+            <div>
+                <img class="w-16" src="{{$this->url}}"/>
+            </div>
     </form>
 </div>

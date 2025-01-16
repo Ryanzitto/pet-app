@@ -28,7 +28,7 @@
                 </header>
             @endif
             <!-- Page Content -->
-            <main>
+            <main class="text-zinc-800">
                 {{ $slot }}
             </main>
         </div>

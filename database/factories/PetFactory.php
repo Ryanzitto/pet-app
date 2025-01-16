@@ -36,7 +36,7 @@ class PetFactory extends Factory
     {
         return [
             'nome' => $this->faker->name(), // Nome do pet gerado aleatoriamente
-            'especie' => $this->faker->randomElement(['Cachorro', 'Gato', 'Pássaro', 'Coelho']),
+            'especie' => $this->faker->randomElement(['Dog', 'Cat',]),
             'raca' => $this->faker->randomElement($this->racas),
             'idade' => $this->faker->numberBetween(1, 10), // Idade aleatória entre 1 e 15
             'user_id' => User::inRandomOrder()->first()->id, // Associa um usuário aleatório
