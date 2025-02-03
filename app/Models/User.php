@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_image'
     ];
 
     /**
@@ -44,8 +45,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }
+
+
 }

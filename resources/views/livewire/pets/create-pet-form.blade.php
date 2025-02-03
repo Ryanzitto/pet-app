@@ -1,13 +1,20 @@
 <?php
 
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component {
+
+    use WithFileUploads;
 
     public $pet_name = "";
     public $pet_specie = "Cat";
     public $pet_breed = "Vira-lata";
     public $pet_age = "";
+    public $pet_gender = "";
+    public $is_neutered = "Yes";
+    public $is_missing = false;
+    public $pet_image;
 
     public $url = "/images/logo.png";
 
@@ -79,6 +86,19 @@ new class extends Component {
             'Outro',
     ];
 
+    public function hashGenerator($tamanho) {
+        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $stringAleatoria = '';
+        $max = strlen($caracteres) - 1;
+    
+        for ($i = 0; $i < $tamanho; $i++) {
+            $indice = rand(0, $max);
+            $stringAleatoria .= $caracteres[$indice];
+        }
+    
+        return $stringAleatoria;
+    }
+
     public function toggleBreed($value){
     if($value === "Cat"){
         $this->breed = $this->cat_breeds;
@@ -98,13 +118,27 @@ new class extends Component {
             'pet_specie' => ['required','string', 'max:255'],
             'pet_breed' => ['required', 'string', 'max:255'],
             'pet_age' => ['required', 'string', 'max:255'],
+            'pet_gender' => ['required', 'string', 'max:255'],
+            'is_neutered' => ['required', 'string', 'max:255'],
+            'is_missing' => ['required', 'boolean'],
+            'pet_image' => ['image']
         ]);
 
+        $extension = $this->pet_image->getClientOriginalExtension();
+                   
+        $filename = $this->hashGenerator(10) . '.' . $extension;
+
+        $this->pet_image->storeAs(path: 'public/photos', name: $filename );
+ 
         auth()->user()->pets()->create([
-            'nome' => $validated['pet_name'],
-            'especie' => $validated['pet_specie'],
-            'raca' => $validated['pet_breed'],
-            'idade' => $validated['pet_age'],
+            'name' => $validated['pet_name'],
+            'specie' => $validated['pet_specie'],
+            'breed' => $validated['pet_breed'],
+            'age' => $validated['pet_age'],
+            'gender' =>$validated['pet_gender'],
+            'is_neutered' => $validated['is_neutered']  ? true : false,
+            'is_missing' => $validated['is_missing'],
+            'pet_image'  =>$filename
         ]);
 
         $this->dispatch('refresh-pets');
@@ -113,7 +147,6 @@ new class extends Component {
             'title'     => 'Cadastro concluído',
             'subtitle'  => " {$validated['pet_name']} foi cadastrado com sucesso!",
          ]);
-
     }
 }; ?>
 
@@ -143,6 +176,28 @@ new class extends Component {
             <x-text-input wire:model="pet_age" type="number" class="w-full mt-2" placeholder="Example: 4"/> 
             <x-input-error :messages="$errors->get('pet_age')" class="mt-2" />
         </div>
+        <div class="w-1/2 px-4 mt-4">
+            <x-input-label value="Your pet is neutered?"/>
+            <x-select-input wire:model="is_neutered" :options="['1' => 'Yes', '2' => 'No']" :disabled="false" class="w-full mt-2"></x-select-input> 
+            <x-input-error :messages="$errors->get('is_neutered')" class="mt-2" />
+        </div>
+        <div class="w-1/2 px-4 mt-4">
+            <x-input-label value="Gender"/>
+            <x-select-input wire:model="pet_gender" :options="['1' => 'Male', '2' => 'Female']" :disabled="false" class="w-full mt-2"></x-select-input> 
+            <x-input-error :messages="$errors->get('pet_gender')" class="mt-2" />
+        </div>
+        <div class="w-1/2 px-4 mt-4 flex flex-col justify-center">
+            <x-input-label value="Pet image"/>
+            <input wire:model="pet_image" type="file" class="w-full mt-2"/> 
+            <x-input-error :messages="$errors->get('pet_image')" class="mt-2" />
+            @if ($pet_image)
+                Image Preview:
+                <img class="w-32" src="{{ $pet_image->temporaryUrl() }}">
+            @endif
+        </div>
+        <div class="w-1/2 px-4 mt-4">
+
+        </div>
         <div class="w-full flex px-4 mt-4 justify-between">
             <div class="flex mt-4 gap-4">
                 <x-primary-button class="h-10" type="submit">Confirm</x-primary-button>
@@ -150,6 +205,6 @@ new class extends Component {
             </div>
             <div>
                 <img class="w-16" src="{{$this->url}}"/>
-            </div>
+        </div>
     </form>
 </div>

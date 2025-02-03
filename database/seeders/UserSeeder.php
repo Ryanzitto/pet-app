@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Cria 50 pets utilizando a factory
         User::factory()->count(15)->create();
     }
 }

@@ -10,7 +10,7 @@ class PetFactory extends Factory
 {
     protected $model = Pet::class;
 
-    public $racas = [
+    public $breeds = [
         "Labrador Retriever",
         "Pastor Alemão",
         "Poodle",
@@ -35,11 +35,15 @@ class PetFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => $this->faker->name(), // Nome do pet gerado aleatoriamente
-            'especie' => $this->faker->randomElement(['Dog', 'Cat',]),
-            'raca' => $this->faker->randomElement($this->racas),
-            'idade' => $this->faker->numberBetween(1, 10), // Idade aleatória entre 1 e 15
-            'user_id' => User::inRandomOrder()->first()->id, // Associa um usuário aleatório
+            'name' => $this->faker->name(), 
+            'specie' => $this->faker->randomElement(['Dog', 'Cat']),
+            'breed' => $this->faker->randomElement($this->breeds),
+            'age' => $this->faker->numberBetween(1, 10), 
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'is_neutered' => $this->faker->boolean(),
+            'is_missing' => $this->faker->boolean(1),
+            'pet_image' => 'placeholder.webp',
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

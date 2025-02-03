@@ -12,14 +12,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pets', function (Blueprint $table) {
-            $table->id(); // Chave primária
-            $table->string('nome'); // Nome do pet
-            $table->string('especie'); // Espécie do pet (ex.: cachorro, gato)
-            $table->string('raca'); // Raca do pet (ex.: golden retriever, pitbull)
-            $table->integer('idade')->nullable(); // Idade do pet (opcional)
-            $table->unsignedBigInteger('user_id'); // Chave estrangeira para usuários
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Define a relação
-            $table->timestamps(); // created_at e updated_at
+            $table->id(); 
+            $table->string('name'); 
+            $table->string('specie');
+            $table->string('breed'); 
+            $table->integer('age')->nullable(); 
+            $table->string('gender');
+            $table->boolean('is_neutered');
+            $table->boolean('is_missing');
+            $table->string('pet_image');
+            $table->unsignedBigInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

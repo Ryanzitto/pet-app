@@ -18,10 +18,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Dev',
             'email' => 'dev@dev.com.br',
             'email_verified_at' => now(),
+            'profile_image' => 'dev.png',
             'password' => bcrypt('12345678'),
         ]);
 
         $this->call(UserSeeder::class);
         $this->call(PetSeeder::class);
+        $this->call(PostSeeder::class);
+
     }
 }

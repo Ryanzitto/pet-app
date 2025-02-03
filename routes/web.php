@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
+Route::view('feed', 'feed')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->name('feed');
 
 Route::get('pets', [PetController::class, 'index'])
     ->middleware(['auth', 'verified'])

@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class PetController extends Controller
 {
 public function index(): View {
-return view ('pets',[]);
+  return view ('pets');
 }
 }
